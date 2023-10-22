@@ -765,7 +765,7 @@ void iterative_deepening(Search *search, int alpha, int beta)
 	// midgame : iterative depth
 	for (search->depth = start; search->depth < end; search->depth += 2) {
 		search->depth_pv_extension = get_pv_extension(search->depth, search->n_empties);
-		score = aspiration_search(search, alpha, beta, search->depth, score);
+		score = aspiration_search(search, SCORE_MIN, SCORE_MAX/*alpha, beta*/, search->depth, score);
 		if (!search_continue(search)) return;
 		if (abs(score) >= SCORE_MAX - 1 && search->depth > end - ITERATIVE_MIN_EMPTIES && search->options.depth >= search->n_empties) break;
 	}
